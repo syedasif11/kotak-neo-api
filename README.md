@@ -135,8 +135,9 @@ client.subscribe(instrument_tokens = instrument_tokens, isIndex=False, isDepth=F
 # Un_Subscribes the given tokens. First the tokens will be checked weather that is subscribed. If not Subscribed we will send you the error message else we will unsubscribe the give tokens
 client.un_subscribe(instrument_tokens=instrument_tokens)
 
-#Order Feed 
-client.subscribe_to_orderfeed()
+
+$${\color{red}#Order Feed }$$
+client.subscribe_to_orderfeed(on_ord_msg)  # takes a function which accepts a string as a parameter as an argument
 #Terminate user's Session
 client.logout()
 ```
