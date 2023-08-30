@@ -553,17 +553,23 @@ class NeoWebSocket:
 class ConnectHSM:
 
     def __init__(self):
-        self.sid = None
+        self.url = None
         self.token = None
+        self.sid = None
         self.hsw = None
+        self.server_id = None
+        self.on_ord_msg = None
 
-    def hsm_connection(self, url, token, sid, server_id):
+    def hsm_connection(self, url, token, sid, server_id, on_ord_msg):
+        self.url = url
         self.token = token
         self.sid = sid
+        self.server_id = server_id
+        self.on_ord_msg = on_ord_msg
         from neo_api_client import HSIWebSocket
         url = str(url) + str(server_id)
         self.hsw = HSIWebSocket()
-        self.hsw.open_connection(url=url, onopen=self.on_open, onmessage=self.on_message, onclose=self.on_close,
+        self.hsw.open_connection(url=url, onopen=self.on_open, onmessage=self.on_ord_msg, onclose=self.on_close,
                                  onerror=self.on_error)
         # print("IN HSM Connetion", self.hsw)
 
@@ -580,6 +586,8 @@ class ConnectHSM:
 
     def on_close(self):
         print("INTO ON Close")
-
+        
     def on_error(self, error):
-        print("INTO ON Error", error)
+        print("Order ws error: ", error)
+        time.sleep(2) # Wait for 2 seconds before reconnecting
+        self.hsm_connection(self.url, self.token, self.sid, self.server_id, self.on_ord_msg)
