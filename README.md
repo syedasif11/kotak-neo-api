@@ -136,7 +136,7 @@ client.subscribe(instrument_tokens = instrument_tokens, isIndex=False, isDepth=F
 client.un_subscribe(instrument_tokens=instrument_tokens)
 
 
-$${\color{red}#Order Feed }$$
+#Order Feed
 client.subscribe_to_orderfeed(on_ord_msg)  # takes a function which accepts a string as a parameter as an argument
 #Terminate user's Session
 client.logout()
