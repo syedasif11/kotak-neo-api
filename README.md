@@ -137,7 +137,7 @@ client.un_subscribe(instrument_tokens=instrument_tokens)
 
 
 #Order Feed
-client.subscribe_to_orderfeed(on_ord_msg)  # takes a function which accepts a string as a parameter as an argument
+client.subscribe_to_orderfeed(on_ord_msg)  # takes a function (on_ord_msg) as as an argument which further accepts a string as a parameter
 #Terminate user's Session
 client.logout()
 ```
